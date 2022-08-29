@@ -8,7 +8,7 @@ import co.com.sofka.domain.generic.Entity;
 
 public class Comment extends Entity<CommentId> {
     private final Author author;
-    private final Content content;
+    private Content content;
     private final Date createdAt;
 
     public Comment(Author author, Content content, Date createdAt) {
