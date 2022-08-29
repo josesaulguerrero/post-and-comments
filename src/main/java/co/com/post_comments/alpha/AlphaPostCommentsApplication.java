@@ -1,4 +1,4 @@
-package com.sofka.alphapostcomments;
+package co.com.post_comments.alpha;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
