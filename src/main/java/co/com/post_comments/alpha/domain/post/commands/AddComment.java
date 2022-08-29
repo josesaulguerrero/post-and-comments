@@ -8,7 +8,7 @@ import co.com.sofka.domain.generic.Command;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class CreateComment extends Command {
+public class AddComment extends Command {
     private final PostId postId;
     private final Author author;
     private final Content content;
