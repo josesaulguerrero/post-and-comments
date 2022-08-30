@@ -3,8 +3,13 @@ package co.com.post_comments.alpha.domain.post.entities.root;
 import co.com.post_comments.alpha.domain.post.entities.Comment;
 import co.com.post_comments.alpha.domain.post.events.CommentAdded;
 import co.com.post_comments.alpha.domain.post.events.PostCreated;
+import co.com.post_comments.alpha.domain.post.values.Author;
+import co.com.post_comments.alpha.domain.post.values.Content;
+import co.com.post_comments.alpha.domain.post.values.Date;
+import co.com.post_comments.alpha.domain.post.values.identities.CommentId;
 import co.com.sofka.domain.generic.EventChange;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PostEventListener extends EventChange {
@@ -17,7 +22,12 @@ public class PostEventListener extends EventChange {
         });
 
         super.apply((CommentAdded event) -> {
-            Comment comment = new Comment(event.commentId(), event.author(), event.content(), event.postedAt());
+            Comment comment = new Comment(
+                    new CommentId(event.commentId()),
+                    new Author(event.author()),
+                    new Content(event.content()),
+                    Date.parse(event.postedAt())
+            );
             post.comments.add(comment);
         });
     }

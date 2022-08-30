@@ -3,10 +3,8 @@ package co.com.post_comments.alpha.domain.post.entities.root;
 import co.com.post_comments.alpha.domain.post.entities.Comment;
 import co.com.post_comments.alpha.domain.post.events.CommentAdded;
 import co.com.post_comments.alpha.domain.post.events.PostCreated;
+import co.com.post_comments.alpha.domain.post.values.identities.CommentId;
 import co.com.post_comments.alpha.domain.post.values.identities.PostId;
-import co.com.post_comments.alpha.domain.post.values.Author;
-import co.com.post_comments.alpha.domain.post.values.Date;
-import co.com.post_comments.alpha.domain.post.values.Title;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 import lombok.EqualsAndHashCode;
@@ -17,9 +15,9 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode(callSuper = true)
 public class Post extends AggregateEvent<PostId> {
-    Author author;
-    Title title;
-    Date postedAt;
+    String author;
+    String title;
+    String postedAt;
     List<Comment> comments;
 
     private Post(PostId entityId) {
@@ -27,10 +25,10 @@ public class Post extends AggregateEvent<PostId> {
         super.subscribe(new PostEventListener(this));
     }
 
-    public Post(PostId entityId, Author author, Title title, Date postedAt) {
+    public Post(PostId entityId, String author, String title, String postedAt) {
         super(entityId);
         super
-                .appendChange(new PostCreated(entityId, title, author, postedAt))
+                .appendChange(new PostCreated(entityId.value(), title, author, postedAt))
                 .apply();
     }
 
@@ -40,21 +38,21 @@ public class Post extends AggregateEvent<PostId> {
         return post;
     }
 
-    public void addComment(String postId, String commentId, String commentAuthor, String commentContent, String postedAt) {
+    public void addComment(PostId postId, CommentId commentId, String commentAuthor, String commentContent, String postedAt) {
         super
-                .appendChange(new CommentAdded(postId, commentId, commentAuthor, commentContent, postedAt))
+                .appendChange(new CommentAdded(postId.value(), commentId.value(), commentAuthor, commentContent, postedAt))
                 .apply();
     }
 
-    public Author author() {
+    public String author() {
         return author;
     }
 
-    public Title title() {
+    public String title() {
         return title;
     }
 
-    public Date postedAt() {
+    public String postedAt() {
         return postedAt;
     }
 
