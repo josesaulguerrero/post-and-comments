@@ -12,8 +12,7 @@ public class AddComment extends Command {
     private final PostId postId;
     private final Author author;
     private final Content content;
-
-    private final Date createdAt;
+    private final Date postedAt;
 
     public PostId postId() {
         return postId;
@@ -27,7 +26,7 @@ public class AddComment extends Command {
         return content;
     }
 
-    public Date createdAt() {
-        return createdAt;
+    public Date postedAt() {
+        return postedAt;
     }
 }

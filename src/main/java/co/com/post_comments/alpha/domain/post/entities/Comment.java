@@ -9,20 +9,20 @@ import co.com.sofka.domain.generic.Entity;
 public class Comment extends Entity<CommentId> {
     private final Author author;
     private Content content;
-    private final Date createdAt;
+    private final Date postedAt;
 
-    public Comment(Author author, Content content, Date createdAt) {
+    public Comment(Author author, Content content, Date postedAt) {
         super(new CommentId());
         this.author = author;
         this.content = content;
-        this.createdAt = createdAt;
+        this.postedAt = postedAt;
     }
 
-    public Comment(CommentId entityId, Author author, Content content, Date createdAt) {
+    public Comment(CommentId entityId, Author author, Content content, Date postedAt) {
         super(entityId);
         this.author = author;
         this.content = content;
-        this.createdAt = createdAt;
+        this.postedAt = postedAt;
     }
 
     public Author author() {
@@ -33,7 +33,7 @@ public class Comment extends Entity<CommentId> {
         return content;
     }
 
-    public Date createdAt() {
-        return createdAt;
+    public Date postedAt() {
+        return postedAt;
     }
 }

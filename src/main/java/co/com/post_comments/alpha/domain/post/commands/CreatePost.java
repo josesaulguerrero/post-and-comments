@@ -10,7 +10,7 @@ import lombok.AllArgsConstructor;
 public class CreatePost extends Command {
     private final Title title;
     private final Author author;
-    private final Date createdAt;
+    private final Date postedAt;
 
     public Title title() {
         return title;
@@ -20,7 +20,7 @@ public class CreatePost extends Command {
         return author;
     }
 
-    public Date createdAt() {
-        return createdAt;
+    public Date postedAt() {
+        return postedAt;
     }
 }

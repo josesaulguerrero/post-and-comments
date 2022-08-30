@@ -10,14 +10,14 @@ public class CreatedPost extends DomainEvent {
     private final PostId postId;
     private final Title title;
     private final Author author;
-    private final Date createdAt;
+    private final Date postedAt;
 
-    public CreatedPost(PostId postId, Title title, Author author, Date createdAt) {
+    public CreatedPost(PostId postId, Title title, Author author, Date postedAt) {
         super("PostAndComments.posts.CreatedPost");
         this.postId = postId;
         this.title = title;
         this.author = author;
-        this.createdAt = createdAt;
+        this.postedAt = postedAt;
     }
 
     public PostId postId() {
@@ -32,7 +32,7 @@ public class CreatedPost extends DomainEvent {
         return author;
     }
 
-    public Date createdAt() {
-        return createdAt;
+    public Date postedAt() {
+        return postedAt;
     }
 }
