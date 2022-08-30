@@ -14,11 +14,11 @@ public class CommentAdded extends DomainEvent {
     private String postedAt;
 
     public CommentAdded() {
-        super("PostAndComments.posts.AddedComment");
+        super(CommentAdded.class.getName());
     }
 
     public CommentAdded(String postId, String commentId, String author, String content, String postedAt) {
-        super("PostAndComments.posts.AddedComment");
+        super(CommentAdded.class.getName());
         this.postId = postId;
         this.commentId = commentId;
         this.author = author;

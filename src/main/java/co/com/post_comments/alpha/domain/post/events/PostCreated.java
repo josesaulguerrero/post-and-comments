@@ -1,40 +1,42 @@
 package co.com.post_comments.alpha.domain.post.events;
 
-import co.com.post_comments.alpha.domain.post.values.identities.PostId;
-import co.com.post_comments.alpha.domain.post.values.Author;
-import co.com.post_comments.alpha.domain.post.values.Date;
-import co.com.post_comments.alpha.domain.post.values.Title;
 import co.com.sofka.domain.generic.DomainEvent;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class PostCreated extends DomainEvent {
-    private final PostId postId;
-    private final Title title;
-    private final Author author;
-    private final Date postedAt;
+    private String postId;
+    private String title;
+    private String author;
+    private String postedAt;
 
-    public PostCreated(PostId postId, Title title, Author author, Date postedAt) {
-        super("PostAndComments.posts.CreatedPost");
+    public PostCreated() {
+        super(PostCreated.class.getName());
+    }
+
+    public PostCreated(String postId, String title, String author, String postedAt) {
+        super(PostCreated.class.getName());
         this.postId = postId;
         this.title = title;
         this.author = author;
         this.postedAt = postedAt;
     }
 
-    public PostId postId() {
+    public String postId() {
         return postId;
     }
 
-    public Title title() {
+    public String title() {
         return title;
     }
 
-    public Author author() {
+    public String author() {
         return author;
     }
 
-    public Date postedAt() {
+    public String postedAt() {
         return postedAt;
     }
 }
