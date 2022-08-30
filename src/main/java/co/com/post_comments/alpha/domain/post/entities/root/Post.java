@@ -56,4 +56,19 @@ public class Post extends AggregateEvent<PostId> {
     public Date postedAt() {
         return postedAt;
     }
+
+    protected Post setAuthor(Author author) {
+        this.author = author;
+        return this;
+    }
+
+    protected Post setTitle(Title title) {
+        this.title = title;
+        return this;
+    }
+
+    protected Post setPostedAt(Date postedAt) {
+        this.postedAt = postedAt;
+        return this;
+    }
 }
