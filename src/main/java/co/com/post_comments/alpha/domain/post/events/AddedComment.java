@@ -6,7 +6,9 @@ import co.com.post_comments.alpha.domain.post.values.Author;
 import co.com.post_comments.alpha.domain.post.values.Content;
 import co.com.post_comments.alpha.domain.post.values.Date;
 import co.com.sofka.domain.generic.DomainEvent;
+import lombok.ToString;
 
+@ToString(callSuper = true)
 public class AddedComment extends DomainEvent {
     private final PostId postId;
     private final CommentId commentId;

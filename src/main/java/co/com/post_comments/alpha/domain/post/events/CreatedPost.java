@@ -5,7 +5,9 @@ import co.com.post_comments.alpha.domain.post.values.Author;
 import co.com.post_comments.alpha.domain.post.values.Date;
 import co.com.post_comments.alpha.domain.post.values.Title;
 import co.com.sofka.domain.generic.DomainEvent;
+import lombok.ToString;
 
+@ToString(callSuper = true)
 public class CreatedPost extends DomainEvent {
     private final PostId postId;
     private final Title title;
