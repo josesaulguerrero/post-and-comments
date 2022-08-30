@@ -1,6 +1,6 @@
 package co.com.post_comments.alpha.domain.post.events;
 
-import co.com.post_comments.alpha.domain.post.identities.PostId;
+import co.com.post_comments.alpha.domain.post.values.identities.PostId;
 import co.com.post_comments.alpha.domain.post.values.Author;
 import co.com.post_comments.alpha.domain.post.values.Date;
 import co.com.post_comments.alpha.domain.post.values.Title;

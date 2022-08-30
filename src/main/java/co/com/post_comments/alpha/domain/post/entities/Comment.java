@@ -1,6 +1,6 @@
 package co.com.post_comments.alpha.domain.post.entities;
 
-import co.com.post_comments.alpha.domain.post.identities.CommentId;
+import co.com.post_comments.alpha.domain.post.values.identities.CommentId;
 import co.com.post_comments.alpha.domain.post.values.Author;
 import co.com.post_comments.alpha.domain.post.values.Content;
 import co.com.post_comments.alpha.domain.post.values.Date;

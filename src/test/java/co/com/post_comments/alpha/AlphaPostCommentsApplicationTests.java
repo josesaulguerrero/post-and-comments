@@ -1,4 +1,4 @@
-package com.sofka.alphapostcomments;
+package co.com.post_comments.alpha;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

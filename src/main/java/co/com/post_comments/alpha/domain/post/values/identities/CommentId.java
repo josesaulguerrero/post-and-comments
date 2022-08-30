@@ -1,4 +1,4 @@
-package co.com.post_comments.alpha.domain.post.identities;
+package co.com.post_comments.alpha.domain.post.values.identities;
 
 import co.com.sofka.domain.generic.Identity;
 
