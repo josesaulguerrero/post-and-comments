@@ -5,7 +5,11 @@ import co.com.post_comments.alpha.domain.post.values.Author;
 import co.com.post_comments.alpha.domain.post.values.Content;
 import co.com.post_comments.alpha.domain.post.values.Date;
 import co.com.sofka.domain.generic.Entity;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@ToString
+@EqualsAndHashCode(callSuper = true)
 public class Comment extends Entity<CommentId> {
     private final Author author;
     private Content content;
