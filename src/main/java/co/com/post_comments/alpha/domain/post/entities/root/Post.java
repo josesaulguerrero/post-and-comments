@@ -1,8 +1,8 @@
 package co.com.post_comments.alpha.domain.post.entities.root;
 
 import co.com.post_comments.alpha.domain.post.entities.Comment;
-import co.com.post_comments.alpha.domain.post.events.AddedComment;
-import co.com.post_comments.alpha.domain.post.events.CreatedPost;
+import co.com.post_comments.alpha.domain.post.events.CommentAdded;
+import co.com.post_comments.alpha.domain.post.events.PostCreated;
 import co.com.post_comments.alpha.domain.post.values.identities.CommentId;
 import co.com.post_comments.alpha.domain.post.values.identities.PostId;
 import co.com.post_comments.alpha.domain.post.values.Author;
@@ -28,7 +28,7 @@ public class Post extends AggregateEvent<PostId> {
     public Post(PostId entityId, Author author, Title title, Date postedAt) {
         super(entityId);
         super
-                .appendChange(new CreatedPost(entityId, title, author, postedAt))
+                .appendChange(new PostCreated(entityId, title, author, postedAt))
                 .apply();
     }
 
@@ -40,7 +40,7 @@ public class Post extends AggregateEvent<PostId> {
 
     public void addComment(PostId postId, CommentId commentId, Author commentAuthor, Content commentContent, Date postedAt) {
         super
-                .appendChange(new AddedComment(postId, commentId, commentAuthor, commentContent, postedAt))
+                .appendChange(new CommentAdded(postId, commentId, commentAuthor, commentContent, postedAt))
                 .apply();
     }
 

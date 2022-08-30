@@ -9,14 +9,14 @@ import co.com.sofka.domain.generic.DomainEvent;
 import lombok.ToString;
 
 @ToString(callSuper = true)
-public class AddedComment extends DomainEvent {
+public class CommentAdded extends DomainEvent {
     private final PostId postId;
     private final CommentId commentId;
     private final Author author;
     private final Content content;
     private final Date postedAt;
 
-    public AddedComment(PostId postId, CommentId commentId, Author author, Content content, Date postedAt) {
+    public CommentAdded(PostId postId, CommentId commentId, Author author, Content content, Date postedAt) {
         super("PostAndComments.posts.AddedComment");
         this.postId = postId;
         this.commentId = commentId;

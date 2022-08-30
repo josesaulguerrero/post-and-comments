@@ -8,13 +8,13 @@ import co.com.sofka.domain.generic.DomainEvent;
 import lombok.ToString;
 
 @ToString(callSuper = true)
-public class CreatedPost extends DomainEvent {
+public class PostCreated extends DomainEvent {
     private final PostId postId;
     private final Title title;
     private final Author author;
     private final Date postedAt;
 
-    public CreatedPost(PostId postId, Title title, Author author, Date postedAt) {
+    public PostCreated(PostId postId, Title title, Author author, Date postedAt) {
         super("PostAndComments.posts.CreatedPost");
         this.postId = postId;
         this.title = title;
