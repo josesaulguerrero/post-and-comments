@@ -1,32 +1,32 @@
 package co.com.post_comments.alpha.domain.post.commands;
 
-import co.com.post_comments.alpha.domain.post.values.identities.PostId;
-import co.com.post_comments.alpha.domain.post.values.Author;
-import co.com.post_comments.alpha.domain.post.values.Content;
-import co.com.post_comments.alpha.domain.post.values.Date;
 import co.com.sofka.domain.generic.Command;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@ToString
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class AddComment extends Command {
-    private final PostId postId;
-    private final Author author;
-    private final Content content;
-    private final Date postedAt;
+    private final String postId;
+    private final String author;
+    private final String content;
+    private final String postedAt;
 
-    public PostId postId() {
+    public String postId() {
         return postId;
     }
 
-    public Author author() {
+    public String author() {
         return author;
     }
 
-    public Content content() {
+    public String content() {
         return content;
     }
 
-    public Date postedAt() {
+    public String postedAt() {
         return postedAt;
     }
 }

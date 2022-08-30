@@ -1,26 +1,27 @@
 package co.com.post_comments.alpha.domain.post.commands;
 
-import co.com.post_comments.alpha.domain.post.values.Author;
-import co.com.post_comments.alpha.domain.post.values.Date;
-import co.com.post_comments.alpha.domain.post.values.Title;
 import co.com.sofka.domain.generic.Command;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@ToString
 @AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 public class CreatePost extends Command {
-    private final Title title;
-    private final Author author;
-    private final Date postedAt;
+    private final String title;
+    private final String author;
+    private final String postedAt;
 
-    public Title title() {
+    public String title() {
         return title;
     }
 
-    public Author author() {
+    public String author() {
         return author;
     }
 
-    public Date postedAt() {
+    public String postedAt() {
         return postedAt;
     }
 }
