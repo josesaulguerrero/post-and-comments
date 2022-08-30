@@ -1,5 +1,6 @@
 package co.com.post_comments.alpha.domain.post.entities.root;
 
+import co.com.post_comments.alpha.domain.post.entities.Comment;
 import co.com.post_comments.alpha.domain.post.events.AddedComment;
 import co.com.post_comments.alpha.domain.post.events.CreatedPost;
 import co.com.post_comments.alpha.domain.post.identities.CommentId;
@@ -14,9 +15,10 @@ import co.com.sofka.domain.generic.DomainEvent;
 import java.util.List;
 
 public class Post extends AggregateEvent<PostId> {
-    private Author author;
-    private Title title;
-    private Date postedAt;
+    Author author;
+    Title title;
+    Date postedAt;
+    List<Comment> comments;
 
     private Post(PostId entityId) {
         super(entityId);
@@ -25,9 +27,6 @@ public class Post extends AggregateEvent<PostId> {
 
     public Post(PostId entityId, Author author, Title title, Date postedAt) {
         super(entityId);
-        this.author = author;
-        this.title = title;
-        this.postedAt = postedAt;
         super
                 .appendChange(new CreatedPost(entityId, title, author, postedAt))
                 .apply();
@@ -39,9 +38,9 @@ public class Post extends AggregateEvent<PostId> {
         return post;
     }
 
-    public void addComment(PostId postId, CommentId commentId, Author commentAuthor, Content commentContent) {
+    public void addComment(PostId postId, CommentId commentId, Author commentAuthor, Content commentContent, Date postedAt) {
         super
-                .appendChange(new AddedComment(postId, commentId, commentAuthor, commentContent))
+                .appendChange(new AddedComment(postId, commentId, commentAuthor, commentContent, postedAt))
                 .apply();
     }
 
@@ -57,18 +56,7 @@ public class Post extends AggregateEvent<PostId> {
         return postedAt;
     }
 
-    protected Post setAuthor(Author author) {
-        this.author = author;
-        return this;
-    }
-
-    protected Post setTitle(Title title) {
-        this.title = title;
-        return this;
-    }
-
-    protected Post setPostedAt(Date postedAt) {
-        this.postedAt = postedAt;
-        return this;
+    public List<Comment> comments() {
+        return comments;
     }
 }
