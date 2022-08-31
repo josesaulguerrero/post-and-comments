@@ -1,4 +1,4 @@
-package co.com.post_comments.alpha.application.handlers;
+package co.com.post_comments.alpha.application.routers;
 
 
 import co.com.post_comments.alpha.business.usecases.AddCommentUseCase;
