@@ -1,5 +1,6 @@
 package co.com.post_comments.alpha.business.usecases;
 
+import co.com.post_comments.alpha.business.commons.UseCaseForCommand;
 import co.com.post_comments.alpha.business.gateways.DomainEventRepository;
 import co.com.post_comments.alpha.business.gateways.EventBus;
 import co.com.post_comments.alpha.domain.post.commands.AddComment;
@@ -16,31 +17,34 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.stream.Collectors;
-
 @Component
 @AllArgsConstructor
-public class AddCommentUseCase {
+public class AddCommentUseCase implements UseCaseForCommand<AddComment> {
     private final DomainEventRepository eventRepository;
     private final EventBus eventBus;
 
+    @Override
     public Flux<DomainEvent> apply(Mono<AddComment> command) {
         return command
-                .map(c -> {
-                    Post post = Post.from(
-                            new PostId(c.postId()),
-                            this.eventRepository.findByAggregateId(c.postId()).toStream().collect(Collectors.toList())
-                    );
-                    post.addComment(
-                            new PostId(c.postId()),
-                            new CommentId(),
-                            new Author(c.author()),
-                            new Content(c.content()),
-                            Date.parse(c.postedAt())
-                    );
-                    return post;
+                .flatMapMany(c -> {
+                    return this.eventRepository.findByAggregateId(c.postId())
+                            .collectList()
+                            .map(events -> {
+                                Post post = Post.from(
+                                        new PostId(c.postId()),
+                                        events
+                                );
+                                post.addComment(
+                                        new PostId(c.postId()),
+                                        new CommentId(),
+                                        new Author(c.author()),
+                                        new Content(c.content()),
+                                        Date.parse(c.postedAt())
+                                );
+                                return post;
+                            })
+                            .flatMapIterable(AggregateEvent::getUncommittedChanges);
                 })
-                .flatMapIterable(AggregateEvent::getUncommittedChanges)
                 .flatMap(event -> this.eventRepository.save(event).doOnNext(this.eventBus::publish));
     }
 }
