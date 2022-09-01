@@ -26,25 +26,24 @@ public class AddCommentUseCase implements UseCaseForCommand<AddComment> {
     @Override
     public Flux<DomainEvent> apply(Mono<AddComment> command) {
         return command
-                .flatMapMany(c -> {
-                    return this.eventRepository.findByAggregateId(c.postId())
-                            .collectList()
-                            .map(events -> {
-                                Post post = Post.from(
-                                        new PostId(c.postId()),
-                                        events
-                                );
-                                post.addComment(
-                                        new PostId(c.postId()),
-                                        new CommentId(),
-                                        new Author(c.author()),
-                                        new Content(c.content()),
-                                        Date.parse(c.postedAt())
-                                );
-                                return post;
-                            })
-                            .flatMapIterable(AggregateEvent::getUncommittedChanges);
-                })
+                .flatMapMany(c ->
+                        this.eventRepository.findByAggregateId(c.postId())
+                                .collectList()
+                                .map(events -> {
+                                    Post post = Post.from(
+                                            new PostId(c.postId()),
+                                            events
+                                    );
+                                    post.addComment(
+                                            new PostId(c.postId()),
+                                            new CommentId(),
+                                            new Author(c.author()),
+                                            new Content(c.content()),
+                                            Date.parse(c.postedAt())
+                                    );
+                                    return post;
+                                })
+                                .flatMapIterable(AggregateEvent::getUncommittedChanges))
                 .flatMap(event -> this.eventRepository.save(event).doOnNext(this.eventBus::publishDomainEvent));
     }
 }
