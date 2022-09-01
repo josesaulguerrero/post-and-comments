@@ -1,5 +1,7 @@
 package co.com.post_comments.alpha.application.commons.json;
 
+import co.com.post_comments.alpha.application.commons.exception.JSONDeserializationException;
+import co.com.post_comments.alpha.application.commons.exception.JSONSerializationException;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
@@ -18,7 +20,9 @@ public class JSONMapperImpl implements JSONMapper {
         try {
             return mapper.writeValueAsString(object);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Couldn't parse the given object to a JSON string.");
+            throw new JSONSerializationException(
+                    String.format("Couldn't parse %s to a JSON string.", object.toString())
+            );
         }
     }
 
@@ -27,7 +31,9 @@ public class JSONMapperImpl implements JSONMapper {
         try {
             return mapper.readValue(json, clazz);
         } catch (JsonProcessingException e) {
-            throw new RuntimeException("Couldn't map the given JSON to a valid instance of the given class.");
+            throw new JSONDeserializationException(
+                    String.format("Couldn't map %s to a valid instance of %s.", json, clazz.getName())
+            );
         }
     }
 }
