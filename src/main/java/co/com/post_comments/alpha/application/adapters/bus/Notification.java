@@ -1,27 +1,26 @@
 package co.com.post_comments.alpha.application.adapters.bus;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import co.com.post_comments.alpha.application.commons.JSONMapper;
+import co.com.post_comments.alpha.application.commons.JSONMapperImpl;
 
 import java.time.Instant;
 
 
 public class Notification {
+    private static final JSONMapper jsonMapper = new JSONMapperImpl();
     private final String type;
     private final String body;
     private final Instant instant;
 
-    @Autowired
-    private ObjectMapper jsonMapper;
 
     public Notification(String type, String body) {
         this.type = type;
         this.body = body;
         this.instant = Instant.now();
     }
-    private Notification(){
-        this(null,null);
+
+    private Notification() {
+        this(null, null);
     }
 
     public String getType() {
@@ -37,22 +36,14 @@ public class Notification {
     }
 
     public Notification deserialize(String stringifiedNotification) {
-        try {
-            return this.jsonMapper.readValue(stringifiedNotification, Notification.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Couldn't deserialize the given String");
-        }
+        return (Notification) jsonMapper.readFromJson(stringifiedNotification, Notification.class);
     }
 
     public String serialize() {
-        try {
-            return this.jsonMapper.writeValueAsString(this);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException("Couldn't serialize the Notification");
-        }
+        return jsonMapper.writeToJson(this);
     }
 
-    public static Notification from(String aNotification){
-        return new Notification().deserialize(aNotification);
+    public static Notification from(String stringifiedNotification) {
+        return new Notification().deserialize(stringifiedNotification);
     }
 }
