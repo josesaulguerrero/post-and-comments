@@ -25,6 +25,6 @@ public class CreatePostUseCase {
         return command
                 .map(c -> new Post(new PostId(), new Author(c.author()), new Title(c.title()), Date.parse(c.postedAt())))
                 .flatMapIterable(AggregateEvent::getUncommittedChanges)
-                .flatMap(event -> this.eventRepository.save(event).doOnNext(this.eventBus::publish));
+                .flatMap(event -> this.eventRepository.save(event).doOnNext(this.eventBus::publishDomainEvent));
     }
 }

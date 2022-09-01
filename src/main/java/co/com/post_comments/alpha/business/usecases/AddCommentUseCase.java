@@ -45,6 +45,6 @@ public class AddCommentUseCase implements UseCaseForCommand<AddComment> {
                             })
                             .flatMapIterable(AggregateEvent::getUncommittedChanges);
                 })
-                .flatMap(event -> this.eventRepository.save(event).doOnNext(this.eventBus::publish));
+                .flatMap(event -> this.eventRepository.save(event).doOnNext(this.eventBus::publishDomainEvent));
     }
 }
