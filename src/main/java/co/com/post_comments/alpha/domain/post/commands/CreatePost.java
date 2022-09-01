@@ -1,11 +1,9 @@
 package co.com.post_comments.alpha.domain.post.commands;
 
 import co.com.sofka.domain.generic.Command;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
+@Setter
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
