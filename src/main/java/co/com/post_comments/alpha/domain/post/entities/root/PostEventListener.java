@@ -2,6 +2,7 @@ package co.com.post_comments.alpha.domain.post.entities.root;
 
 import co.com.post_comments.alpha.domain.post.entities.Comment;
 import co.com.post_comments.alpha.domain.post.events.CommentAdded;
+import co.com.post_comments.alpha.domain.post.events.CommentContentChanged;
 import co.com.post_comments.alpha.domain.post.events.PostCreated;
 import co.com.post_comments.alpha.domain.post.values.Author;
 import co.com.post_comments.alpha.domain.post.values.Content;
@@ -29,6 +30,17 @@ public class PostEventListener extends EventChange {
                     Date.parse(event.postedAt())
             );
             post.comments.add(comment);
+        });
+
+        super.apply((CommentContentChanged event) -> {
+            Comment comment = post.comments
+                    .stream()
+                    .filter(c -> c.identity().value().equals(event.commentId()))
+                    .findFirst()
+                    .orElseThrow(() -> new IllegalArgumentException("The given CommentId is not associated to this Post or it doesn't exist."));
+            comment.changeContent(new Content(
+                    event.commentContent()
+            ));
         });
     }
 }
