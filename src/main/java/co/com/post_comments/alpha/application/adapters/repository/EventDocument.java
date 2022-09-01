@@ -17,6 +17,13 @@ public class EventDocument {
     private LocalDateTime timestamp;
     private String eventType;
 
+    public EventDocument(String aggregateRootId, String eventJSON, LocalDateTime timestamp, String eventType) {
+        this.aggregateRootId = aggregateRootId;
+        this.eventJSON = eventJSON;
+        this.timestamp = timestamp;
+        this.eventType = eventType;
+    }
+
     public String oid() {
         return oid;
     }
