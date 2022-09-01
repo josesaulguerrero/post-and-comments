@@ -16,6 +16,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.List;
+import java.util.Objects;
 
 @ToString
 @EqualsAndHashCode(callSuper = true)
@@ -32,24 +33,38 @@ public class Post extends AggregateEvent<PostId> {
 
     public Post(PostId entityId, Author author, Title title, Date postedAt) {
         super(entityId);
+        Objects.requireNonNull(entityId);
+        Objects.requireNonNull(author);
+        Objects.requireNonNull(title);
+        Objects.requireNonNull(postedAt);
         super
                 .appendChange(new PostCreated(entityId.value(), title.value(), author.value(), postedAt.value().toString()))
                 .apply();
     }
 
     public static Post from(PostId postId, List<DomainEvent> events) {
+        Objects.requireNonNull(postId);
+        Objects.requireNonNull(events);
         Post post = new Post(postId);
         events.forEach(post::applyEvent);
         return post;
     }
 
     public void addComment(PostId postId, CommentId commentId, Author commentAuthor, Content commentContent, Date postedAt) {
+        Objects.requireNonNull(postId);
+        Objects.requireNonNull(commentId);
+        Objects.requireNonNull(commentAuthor);
+        Objects.requireNonNull(commentContent);
+        Objects.requireNonNull(postedAt);
         super
                 .appendChange(new CommentAdded(postId.value(), commentId.value(), commentAuthor.value(), commentContent.value(), postedAt.value().toString()))
                 .apply();
     }
 
     public void changeCommentContent(PostId postId, CommentId commentId, Content commentContent) {
+        Objects.requireNonNull(postId);
+        Objects.requireNonNull(commentId);
+        Objects.requireNonNull(commentContent);
         super
                 .appendChange(new CommentContentChanged(postId.value(), commentId.value(), commentContent.value()))
                 .apply();
