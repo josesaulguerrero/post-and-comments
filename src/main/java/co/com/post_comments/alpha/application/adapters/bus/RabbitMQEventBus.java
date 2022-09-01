@@ -30,7 +30,7 @@ public class RabbitMQEventBus implements EventBus {
 
     @Override
     public void publishError(Throwable errorEvent) {
-        ErrorEvent event = new ErrorEvent(errorEvent.getClass().getTypeName(), errorEvent.getMessage());
+        RabbitMQErrorEvent event = new RabbitMQErrorEvent(errorEvent.getClass().getTypeName(), errorEvent.getMessage());
         RabbitMQMessage rabbitMQMessage = new RabbitMQMessage(
                 event.getClass().getTypeName(),
                 jsonMapper.writeToJson(event)
