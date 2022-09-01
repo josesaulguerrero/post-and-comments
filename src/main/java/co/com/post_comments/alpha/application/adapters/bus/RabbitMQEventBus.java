@@ -1,7 +1,7 @@
 package co.com.post_comments.alpha.application.adapters.bus;
 
-import co.com.post_comments.alpha.application.commons.JSONMapper;
-import co.com.post_comments.alpha.application.commons.JSONMapperImpl;
+import co.com.post_comments.alpha.application.commons.json.JSONMapper;
+import co.com.post_comments.alpha.application.commons.json.JSONMapperImpl;
 import co.com.post_comments.alpha.application.config.RabbitMQConfig;
 import co.com.post_comments.alpha.business.gateways.EventBus;
 import co.com.sofka.domain.generic.DomainEvent;

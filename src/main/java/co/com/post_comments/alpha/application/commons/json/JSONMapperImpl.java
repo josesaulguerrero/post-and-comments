@@ -1,4 +1,4 @@
-package co.com.post_comments.alpha.application.commons;
+package co.com.post_comments.alpha.application.commons.json;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonInclude;

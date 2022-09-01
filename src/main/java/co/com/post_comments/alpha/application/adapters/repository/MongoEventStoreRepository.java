@@ -1,6 +1,6 @@
 package co.com.post_comments.alpha.application.adapters.repository;
 
-import co.com.post_comments.alpha.application.commons.JSONMapper;
+import co.com.post_comments.alpha.application.commons.json.JSONMapper;
 import co.com.post_comments.alpha.business.gateways.DomainEventRepository;
 import co.com.sofka.domain.generic.DomainEvent;
 import lombok.AllArgsConstructor;

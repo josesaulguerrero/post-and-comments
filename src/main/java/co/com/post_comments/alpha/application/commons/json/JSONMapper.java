@@ -1,4 +1,4 @@
-package co.com.post_comments.alpha.application.commons;
+package co.com.post_comments.alpha.application.commons.json;
 
 public interface JSONMapper {
     String writeToJson(Object object);
