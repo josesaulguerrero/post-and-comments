@@ -2,6 +2,7 @@ package co.com.post_comments.alpha.application.adapters.repository;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
 
@@ -9,10 +10,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class EventDocument {
 
+    @Id
+    private String oid;
     private String aggregateRootId;
     private String eventJSON;
     private LocalDateTime timestamp;
     private String eventType;
+
+    public String oid() {
+        return oid;
+    }
 
     public String aggregateRootId() {
         return aggregateRootId;
