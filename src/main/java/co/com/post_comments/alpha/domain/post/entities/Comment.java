@@ -29,6 +29,10 @@ public class Comment extends Entity<CommentId> {
         this.postedAt = postedAt;
     }
 
+    public void changeContent(Content content) {
+        this.content = content;
+    }
+
     public Author author() {
         return author;
     }
