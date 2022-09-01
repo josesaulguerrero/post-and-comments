@@ -1,13 +1,19 @@
-package com.posada.santiago.alphapostsandcomments.application.adapters.bus;
+package co.com.post_comments.alpha.application.adapters.bus;
 
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Instant;
+
 
 public class Notification {
     private final String type;
     private final String body;
     private final Instant instant;
+
+    @Autowired
+    private ObjectMapper jsonMapper;
 
     public Notification(String type, String body) {
         this.type = type;
@@ -30,12 +36,20 @@ public class Notification {
         return instant;
     }
 
-    public Notification deserialize(String aSerialization) {
-        return  new Gson().fromJson(aSerialization, Notification.class);
+    public Notification deserialize(String stringifiedNotification) {
+        try {
+            return this.jsonMapper.readValue(stringifiedNotification, Notification.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Couldn't deserialize the given String");
+        }
     }
 
     public String serialize() {
-        return new Gson().toJson(this);
+        try {
+            return this.jsonMapper.writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Couldn't serialize the Notification");
+        }
     }
 
     public static Notification from(String aNotification){

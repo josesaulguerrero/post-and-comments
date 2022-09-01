@@ -1,38 +1,56 @@
-package com.posada.santiago.alphapostsandcomments.application.adapters.bus;
+package co.com.post_comments.alpha.application.adapters.bus;
 
+import co.com.post_comments.alpha.application.config.RabbitMQConfig;
+import co.com.post_comments.alpha.business.gateways.EventBus;
 import co.com.sofka.domain.generic.DomainEvent;
-import com.google.gson.Gson;
-import com.posada.santiago.alphapostsandcomments.business.gateways.EventBus;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RabbitMqEventBus implements EventBus {
+public class RabbitMQEventBus implements EventBus {
     private final RabbitTemplate rabbitTemplate;
-    private final Gson gson = new Gson();
+    @Autowired
+    private ObjectMapper jsonMapper;
 
-    public RabbitMqEventBus(RabbitTemplate rabbitTemplate) {
+    public RabbitMQEventBus(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
-    public void publish(DomainEvent event) {
-        var notification = new Notification(
-                event.getClass().getTypeName(),
-                gson.toJson(event)
-        );
-        rabbitTemplate.convertAndSend(
-                com.posada.santiago.alphapostsandcomments.application.config.RabbitMQConfig.EXCHANGE, com.posada.santiago.alphapostsandcomments.application.config.RabbitMQConfig.GENERAL_ROUTING_KEY, notification.serialize().getBytes()
-        );
+    public void publishDomainEvent(DomainEvent event) {
+        try {
+            Notification notification = new Notification(
+                    event.getClass().getTypeName(),
+                    this.jsonMapper.writeValueAsString(event)
+            );
+            rabbitTemplate.convertAndSend(
+                    RabbitMQConfig.EXCHANGE,
+                    RabbitMQConfig.MAIN_ROUTING_KEY,
+                    notification.serialize().getBytes()
+            );
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void publishError(Throwable errorEvent) {
-        var event = new ErrorEvent(errorEvent.getClass().getTypeName(), errorEvent.getMessage());
-        var notification = new Notification(
-                event.getClass().getTypeName(),
-                gson.toJson(event)
-        );
-        rabbitTemplate.convertAndSend(com.posada.santiago.alphapostsandcomments.application.config.RabbitMQConfig.EXCHANGE, com.posada.santiago.alphapostsandcomments.application.config.RabbitMQConfig.GENERAL_ROUTING_KEY, notification.serialize().getBytes());
+        try {
+            ErrorEvent event = new ErrorEvent(errorEvent.getClass().getTypeName(), errorEvent.getMessage());
+            Notification notification = new Notification(
+                    event.getClass().getTypeName(),
+                    this.jsonMapper.writeValueAsString(event)
+            );
+            rabbitTemplate.convertAndSend(
+                    RabbitMQConfig.EXCHANGE,
+                    RabbitMQConfig.MAIN_ROUTING_KEY,
+                    notification.serialize().getBytes()
+            );
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

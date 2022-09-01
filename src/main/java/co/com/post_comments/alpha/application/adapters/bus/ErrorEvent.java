@@ -1,4 +1,4 @@
-package com.posada.santiago.alphapostsandcomments.application.adapters.bus;
+package co.com.post_comments.alpha.application.adapters.bus;
 
 import co.com.sofka.domain.generic.DomainEvent;
 
