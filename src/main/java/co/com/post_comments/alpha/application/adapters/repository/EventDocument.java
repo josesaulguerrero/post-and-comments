@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 public class EventDocument {
 
     private String aggregateRootId;
-    private String json;
+    private String eventJSON;
     private LocalDateTime timestamp;
     private String eventType;
 
@@ -18,8 +18,8 @@ public class EventDocument {
         return aggregateRootId;
     }
 
-    public String json() {
-        return json;
+    public String eventJSON() {
+        return eventJSON;
     }
 
     public LocalDateTime timestamp() {
