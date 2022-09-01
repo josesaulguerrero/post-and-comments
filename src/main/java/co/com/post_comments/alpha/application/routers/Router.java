@@ -21,24 +21,24 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class Router {
 
     @Bean
-    public RouterFunction<ServerResponse> createPost(CreatePostUseCase useCase){
-
+    public RouterFunction<ServerResponse> createPost(CreatePostUseCase useCase) {
         return route(
                 POST("create/post").and(accept(MediaType.APPLICATION_JSON)),
-                request -> ServerResponse
-                        .ok()
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(
-                                BodyInserters.fromPublisher(
-                                        useCase.apply(request.bodyToMono(CreatePost.class)),
-                                        DomainEvent.class
+                request ->
+                        ServerResponse
+                                .ok()
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .body(
+                                        BodyInserters.fromPublisher(
+                                                useCase.apply(request.bodyToMono(CreatePost.class)),
+                                                DomainEvent.class
+                                        )
                                 )
-                        )
         );
     }
 
     @Bean
-    public RouterFunction<ServerResponse> addComment(AddCommentUseCase useCase){
+    public RouterFunction<ServerResponse> addComment(AddCommentUseCase useCase) {
 
         return route(
                 POST("add/comment").and(accept(MediaType.APPLICATION_JSON)),
