@@ -57,7 +57,7 @@ public class Router {
     @Bean
     public RouterFunction<ServerResponse> changeCommentContent(ChangeCommentContentUseCase useCase) {
         return route(
-                PATCH("patch/comment").and(accept(MediaType.APPLICATION_JSON)),
+                PATCH("patch/comment/content").and(accept(MediaType.APPLICATION_JSON)),
                 request -> ServerResponse
                         .ok()
                         .contentType(MediaType.APPLICATION_JSON)
