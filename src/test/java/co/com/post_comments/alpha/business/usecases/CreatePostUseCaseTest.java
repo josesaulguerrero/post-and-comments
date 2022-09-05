@@ -33,14 +33,16 @@ class CreatePostUseCaseTest {
     void apply_ShouldCreateANewPost_WhenSuccessful() {
         // Arrange
         CreatePost command = new CreatePost(
-                "Test post",
                 "Tester",
+                "Test post",
+                "content",
                 LocalDateTime.now().toString()
         );
         PostCreated event = new PostCreated(
                 UUID.randomUUID().toString(),
                 command.title(),
-                content, command.author(),
+                command.content(),
+                command.author(),
                 command.postedAt()
         );
 

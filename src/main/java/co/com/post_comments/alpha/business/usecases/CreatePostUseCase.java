@@ -5,6 +5,7 @@ import co.com.post_comments.alpha.business.gateways.EventBus;
 import co.com.post_comments.alpha.domain.post.commands.CreatePost;
 import co.com.post_comments.alpha.domain.post.entities.root.Post;
 import co.com.post_comments.alpha.domain.post.values.Author;
+import co.com.post_comments.alpha.domain.post.values.Content;
 import co.com.post_comments.alpha.domain.post.values.Date;
 import co.com.post_comments.alpha.domain.post.values.Title;
 import co.com.post_comments.alpha.domain.post.values.identities.PostId;
@@ -23,7 +24,13 @@ public class CreatePostUseCase {
 
     public Flux<DomainEvent> apply(Mono<CreatePost> command) {
         return command
-                .map(c -> new Post(new PostId(), new Author(c.author()), new Title(c.title()), Date.parse(c.postedAt())))
+                .map(c -> new Post(
+                        new PostId(),
+                        new Author(c.author()),
+                        new Title(c.title()),
+                        new Content(c.content()),
+                        Date.parse(c.postedAt())
+                ))
                 .flatMapIterable(AggregateEvent::getUncommittedChanges)
                 .flatMap(event -> this.eventRepository.save(event).doOnNext(this.eventBus::publishDomainEvent));
     }
