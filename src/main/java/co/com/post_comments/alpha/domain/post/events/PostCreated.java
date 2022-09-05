@@ -9,6 +9,7 @@ import lombok.ToString;
 public class PostCreated extends DomainEvent {
     private String postId;
     private String title;
+    private String content;
     private String author;
     private String postedAt;
 
@@ -16,10 +17,11 @@ public class PostCreated extends DomainEvent {
         super(PostCreated.class.getName());
     }
 
-    public PostCreated(String postId, String title, String author, String postedAt) {
+    public PostCreated(String postId, String title, String content, String author, String postedAt) {
         super(PostCreated.class.getName());
         this.postId = postId;
         this.title = title;
+        this.content = content;
         this.author = author;
         this.postedAt = postedAt;
     }
@@ -30,6 +32,10 @@ public class PostCreated extends DomainEvent {
 
     public String title() {
         return title;
+    }
+
+    public String content() {
+        return content;
     }
 
     public String author() {

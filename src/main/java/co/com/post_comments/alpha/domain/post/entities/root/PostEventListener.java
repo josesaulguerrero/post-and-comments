@@ -10,7 +10,6 @@ import co.com.post_comments.alpha.domain.post.values.Date;
 import co.com.post_comments.alpha.domain.post.values.identities.CommentId;
 import co.com.sofka.domain.generic.EventChange;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class PostEventListener extends EventChange {
@@ -19,6 +18,7 @@ public class PostEventListener extends EventChange {
             post.postedAt = event.postedAt();
             post.author = event.author();
             post.title = event.title();
+            post.content = event.content();
             post.comments = new ArrayList<>();
         });
 

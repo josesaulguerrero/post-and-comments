@@ -23,6 +23,7 @@ import java.util.Objects;
 public class Post extends AggregateEvent<PostId> {
     String author;
     String title;
+    String content;
     String postedAt;
     List<Comment> comments;
 
@@ -31,14 +32,15 @@ public class Post extends AggregateEvent<PostId> {
         super.subscribe(new PostEventListener(this));
     }
 
-    public Post(PostId entityId, Author author, Title title, Date postedAt) {
+    public Post(PostId entityId, Author author, Title title, Content content, Date postedAt) {
         super(entityId);
         Objects.requireNonNull(entityId);
         Objects.requireNonNull(author);
         Objects.requireNonNull(title);
+        Objects.requireNonNull(content);
         Objects.requireNonNull(postedAt);
         super
-                .appendChange(new PostCreated(entityId.value(), title.value(), author.value(), postedAt.value().toString()))
+                .appendChange(new PostCreated(entityId.value(), title.value(), content.value(), author.value(), postedAt.value().toString()))
                 .apply();
     }
 

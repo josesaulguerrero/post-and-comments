@@ -58,7 +58,7 @@ class AddCommentUseCaseTest {
                         new PostCreated(
                                 command.postId(),
                                 "Test post",
-                                "Tester",
+                                content, "Tester",
                                 LocalDateTime.now().minusDays(1).toString()
                         )
                 ));
