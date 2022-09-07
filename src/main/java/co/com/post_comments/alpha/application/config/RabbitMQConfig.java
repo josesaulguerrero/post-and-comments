@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfig {
-    public static final String EXCHANGE = "posts-comments-alpha";
+    public static final String EXCHANGE = "main.exchange";
 
     public static final String MAIN_QUEUE = "events.main";
 
