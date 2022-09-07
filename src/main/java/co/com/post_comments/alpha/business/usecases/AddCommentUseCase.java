@@ -39,7 +39,7 @@ public class AddCommentUseCase implements UseCaseForCommand<AddComment> {
                                             new CommentId(),
                                             new Author(c.author()),
                                             new Content(c.content()),
-                                            Date.parse(c.postedAt())
+                                            new Date(c.postedAt())
                                     );
                                     return post;
                                 })

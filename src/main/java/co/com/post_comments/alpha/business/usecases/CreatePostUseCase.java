@@ -29,7 +29,7 @@ public class CreatePostUseCase {
                         new Author(c.author()),
                         new Title(c.title()),
                         new Content(c.content()),
-                        Date.parse(c.postedAt())
+                        new Date(c.postedAt())
                 ))
                 .flatMapIterable(AggregateEvent::getUncommittedChanges)
                 .flatMap(event -> this.eventRepository.save(event).doOnNext(this.eventBus::publishDomainEvent));

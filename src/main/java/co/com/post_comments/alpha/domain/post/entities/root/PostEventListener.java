@@ -27,7 +27,7 @@ public class PostEventListener extends EventChange {
                     new CommentId(event.commentId()),
                     new Author(event.author()),
                     new Content(event.content()),
-                    Date.parse(event.postedAt())
+                    new Date(event.postedAt())
             );
             post.comments.add(comment);
         });
