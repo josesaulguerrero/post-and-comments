@@ -1,5 +1,7 @@
-package co.com.post_comments.alpha.application.security;
+package co.com.post_comments.alpha.application.security.services;
 
+import co.com.post_comments.alpha.application.security.models.AppUser;
+import co.com.post_comments.alpha.application.security.models.JWT;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;

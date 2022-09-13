@@ -1,4 +1,4 @@
-package co.com.post_comments.alpha.application.security;
+package co.com.post_comments.alpha.application.security.models;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

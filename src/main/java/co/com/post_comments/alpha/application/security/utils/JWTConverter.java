@@ -1,5 +1,6 @@
-package co.com.post_comments.alpha.application.security;
+package co.com.post_comments.alpha.application.security.utils;
 
+import co.com.post_comments.alpha.application.security.models.JWT;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.server.authentication.ServerAuthenticationConverter;

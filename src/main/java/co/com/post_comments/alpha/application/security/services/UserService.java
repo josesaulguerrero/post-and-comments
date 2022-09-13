@@ -1,5 +1,6 @@
-package co.com.post_comments.alpha.application.security;
+package co.com.post_comments.alpha.application.security.services;
 
+import co.com.post_comments.alpha.application.security.data.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService;
 import org.springframework.security.core.userdetails.UserDetails;

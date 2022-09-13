@@ -1,5 +1,7 @@
 package co.com.post_comments.alpha.application.security;
 
+import co.com.post_comments.alpha.application.security.utils.JWTAuthenticationManager;
+import co.com.post_comments.alpha.application.security.utils.JWTConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
