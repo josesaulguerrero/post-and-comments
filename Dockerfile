@@ -1,4 +1,4 @@
 FROM amazoncorretto:11-alpine-jdk
-COPY /out/artifacts/alpha_jar/alpha.jar alpha.jar
+COPY /target/alpha.jar alpha.jar
 EXPOSE 8070/tcp
 ENTRYPOINT ["java","-jar","/alpha.jar"]
