@@ -23,7 +23,6 @@ import static org.springframework.web.reactive.function.server.RouterFunctions.r
 public class Router {
 
     @Bean
-    @PreAuthorize("hasAnyRole(\"ADMIN\")")
     public RouterFunction<ServerResponse> createPost(CreatePostUseCase useCase) {
         return route(
                 POST("create/post").and(accept(MediaType.APPLICATION_JSON)),
@@ -41,7 +40,6 @@ public class Router {
     }
 
     @Bean
-    @PreAuthorize("hasAnyRole(\"ADMIN\")")
     public RouterFunction<ServerResponse> addComment(AddCommentUseCase useCase) {
         return route(
                 POST("add/comment").and(accept(MediaType.APPLICATION_JSON)),

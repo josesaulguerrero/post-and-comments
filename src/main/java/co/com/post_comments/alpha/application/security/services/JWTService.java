@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.Date;
 
 @Service
@@ -24,7 +23,7 @@ public class JWTService {
             .setSigningKey(this.secretKey)
             .build();
 
-    public JWT generateJWTForUserWithUsername(String username) {
+    public JWT generateJWTForUserWithCredentials(String username) {
         return new JWT(
                 Jwts.builder()
                         .setSubject(username)
@@ -33,19 +32,18 @@ public class JWTService {
                         ))
                         .setIssuedAt(new Date())
                         .signWith(this.secretKey)
-                        .compact(),
-                new ArrayList<>()
+                        .compact()
         );
     }
 
     public String getUsernameFromToken(JWT token) {
-        return this.parser.parseClaimsJwt(token.value)
+        return this.parser.parseClaimsJwt(token.getValue())
                 .getBody()
                 .getSubject();
     }
 
     public boolean isValidJWT(JWT token, AppUser user) {
-        Claims claims = this.parser.parseClaimsJwt(token.value)
+        Claims claims = this.parser.parseClaimsJwt(token.getValue())
                 .getBody();
         return claims.getExpiration().after(Date.from(Instant.now())) && claims.getSubject().equals(user.getUsername());
     }
