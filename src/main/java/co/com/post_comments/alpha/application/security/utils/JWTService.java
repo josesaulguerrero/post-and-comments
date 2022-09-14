@@ -5,6 +5,7 @@ import co.com.post_comments.alpha.application.security.models.JWT;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,9 +19,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class JWTService {
-    private final SecretKey secretKey = Keys.hmacShaKeyFor(
-            System.getenv("JWT_SECRET_KEY").getBytes()
-    );
+    private final SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     private final JwtParser parser = Jwts.parserBuilder()
             .setSigningKey(this.secretKey)
