@@ -25,10 +25,9 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeExchange()
                     .pathMatchers("/auth/**").permitAll()
-                    .pathMatchers("/create/post", "/add/comment").hasRole("ADMIN")
+                    .pathMatchers("/create/post", "/add/comment").hasAnyRole("ADMIN", "USER")
                 .and()
                     .addFilterAt(new JWTAuthorizationFilter(authenticationManager, jwtService), SecurityWebFiltersOrder.AUTHENTICATION)
-                    //.addFilterAt(jwtFilter, SecurityWebFiltersOrder.AUTHORIZATION)
                     .formLogin().disable()
                     .httpBasic().disable()
                 .build();
