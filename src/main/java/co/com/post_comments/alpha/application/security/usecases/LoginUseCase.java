@@ -25,7 +25,7 @@ public class LoginUseCase {
                                     if (!this.passwordEncoder.matches(r.getPassword(), user.getPassword())) {
                                         return Mono.error(new IllegalArgumentException("The given credentials do not match."));
                                     }
-                                    JWT jwt = this.jwtService.generateJWTForUserWithCredentials(user.getUsername());
+                                    JWT jwt = this.jwtService.generateJWTForUserWithCredentials(user.getUsername(), user.getAuthorities());
                                     return Mono.just(
                                             new AuthResponse(jwt.getValue())
                                     );
