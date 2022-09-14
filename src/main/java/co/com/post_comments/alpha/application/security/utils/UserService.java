@@ -1,4 +1,4 @@
-package co.com.post_comments.alpha.application.security.services;
+package co.com.post_comments.alpha.application.security.utils;
 
 import co.com.post_comments.alpha.application.security.data.UserRepository;
 import lombok.AllArgsConstructor;

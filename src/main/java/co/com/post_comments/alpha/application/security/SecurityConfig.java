@@ -1,8 +1,8 @@
 package co.com.post_comments.alpha.application.security;
 
 import co.com.post_comments.alpha.application.security.filters.JWTAuthorizationFilter;
-import co.com.post_comments.alpha.application.security.services.JWTService;
-import co.com.post_comments.alpha.application.security.services.UserService;
+import co.com.post_comments.alpha.application.security.utils.JWTService;
+import co.com.post_comments.alpha.application.security.utils.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UserDetailsRepositoryReactiveAuthenticationManager;

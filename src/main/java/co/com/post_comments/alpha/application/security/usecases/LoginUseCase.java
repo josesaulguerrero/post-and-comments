@@ -4,7 +4,7 @@ import co.com.post_comments.alpha.application.security.data.UserRepository;
 import co.com.post_comments.alpha.application.security.models.AuthRequest;
 import co.com.post_comments.alpha.application.security.models.AuthResponse;
 import co.com.post_comments.alpha.application.security.models.JWT;
-import co.com.post_comments.alpha.application.security.services.JWTService;
+import co.com.post_comments.alpha.application.security.utils.JWTService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

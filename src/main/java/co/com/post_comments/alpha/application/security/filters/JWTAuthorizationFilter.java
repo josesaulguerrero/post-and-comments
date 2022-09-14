@@ -1,7 +1,7 @@
 package co.com.post_comments.alpha.application.security.filters;
 
 import co.com.post_comments.alpha.application.security.models.JWT;
-import co.com.post_comments.alpha.application.security.services.JWTService;
+import co.com.post_comments.alpha.application.security.utils.JWTService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.ReactiveAuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

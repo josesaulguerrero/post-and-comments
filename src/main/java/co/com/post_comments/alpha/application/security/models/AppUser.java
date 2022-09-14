@@ -19,11 +19,15 @@ import java.util.List;
 public class AppUser implements UserDetails {
     @Id
     private String id;
-    private String fullName;
-    private String email;
     private String username;
     private String password;
     private Roles role;
+
+    public AppUser(String username, String password, Roles role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
