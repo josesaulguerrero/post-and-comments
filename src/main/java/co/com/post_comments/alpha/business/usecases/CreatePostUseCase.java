@@ -12,10 +12,12 @@ import co.com.post_comments.alpha.domain.post.values.identities.PostId;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Component
 @AllArgsConstructor
 public class CreatePostUseCase {
@@ -24,14 +26,19 @@ public class CreatePostUseCase {
 
     public Flux<DomainEvent> apply(Mono<CreatePost> command) {
         return command
-                .map(c -> new Post(
-                        new PostId(),
-                        new Author(c.author()),
-                        new Title(c.title()),
-                        new Content(c.content()),
-                        new Date(c.postedAt())
-                ))
+                .map(c -> {
+                    Post post = new Post(
+                            new PostId(),
+                            new Author(c.author()),
+                            new Title(c.title()),
+                            new Content(c.content()),
+                            new Date(c.postedAt())
+                    );
+                    log.info("Creating a post with the following info: " + post);
+                    return post;
+                })
                 .flatMapIterable(AggregateEvent::getUncommittedChanges)
-                .flatMap(event -> this.eventRepository.save(event).doOnNext(this.eventBus::publishDomainEvent));
+                .flatMap(event -> this.eventRepository.save(event).doOnNext(this.eventBus::publishDomainEvent))
+                .doOnError(error -> log.error("Something went wrong while executing the CreatePost use case: " + error.getMessage()));
     }
 }
