@@ -9,9 +9,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
 
+@Slf4j
 @Repository
 @AllArgsConstructor
-@Slf4j
 public class UserRepository {
     private final static String COLLECTION = "users";
     private final ReactiveMongoTemplate mongoDBTemplate;
@@ -21,12 +21,13 @@ public class UserRepository {
     }
 
     public Mono<AppUser> findByUsername(String username) {
-        System.out.println("username = " + username);
+        log.info("The UserRepository is trying to find a user with username: " + username);
         return this.mongoDBTemplate
                 .findOne(
                         new Query(Criteria.where("username").is(username)),
                         AppUser.class,
                         COLLECTION
-                );
+                )
+                .doOnError(error -> log.error("Failed to find user with the given username; " + error.getMessage()));
     }
 }
