@@ -1,23 +1,27 @@
 package co.com.post_comments.alpha.application.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.reactive.config.CorsRegistry;
-import org.springframework.web.reactive.config.EnableWebFlux;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 import org.springframework.web.reactive.config.WebFluxConfigurer;
 
+import java.util.List;
+
 @Configuration
-@EnableWebFlux
 public class CORSConfig implements WebFluxConfigurer {
-    @Override
-    public void addCorsMappings(CorsRegistry corsRegistry) {
-        corsRegistry.addMapping("/**")
-                .allowedOriginPatterns(
-                        "https://post-comments-c72b8.firebaseapp.com",
-                        "https://post-comments-c72b8.web.app",
-                        "http://localhost:[*]"
-                )
-                .allowedHeaders("*")
-                .allowedMethods("POST")
-                .maxAge(3600);
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.applyPermitDefaultValues();
+        configuration.setAllowedOriginPatterns(
+                List.of("https://post-comments-c72b8.web.app", "http://localhost:[*]")
+        );
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowedMethods(List.of("POST"));
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 }
